@@ -112,7 +112,13 @@ public class UserService {
 		}
 		return true;
 	}
-	
+	/**
+	 * 
+	 * @param user
+	 * @param text
+	 * @return
+	 * @throws UserNotFoundException
+	 */
 	public Set<String> getRecipients(User user, String text) throws UserNotFoundException {
 		User u = users.get(user.getMailAddress());
 		if (u == null) {

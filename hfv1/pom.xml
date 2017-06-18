@@ -2,7 +2,66 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.yangqingxin</groupId>
   <artifactId>hfv1</artifactId>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
+  	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>./release_folder/release_jars</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin> 
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-lib-src-webapps</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<copy todir="./release_folder/release_jars">
+									<fileset dir="./target">
+										<include name="hfv1-0.0.1-SNAPSHOT.jar" />
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+  
+  
 <dependencies>
 		<dependency>
 			<groupId>junit</groupId>
