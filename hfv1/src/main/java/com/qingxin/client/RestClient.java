@@ -15,7 +15,12 @@ public class RestClient {
 	
 	public static void main(String args[]) {
 		System.out.println(RestClient.sendHelloRequest());
-		System.out.println("Create a friend connection:" + RestClient.sendCreateRequest());
+		System.out.println("Become      friend:" + RestClient.sendCreateRequest());
+		System.out.println("Get  friend   list:" + RestClient.getFriendsRequest());
+		System.out.println("Get  common friend:" + RestClient.getCommonFriendsRequest());
+		System.out.println("Subscribe   friend:" + RestClient.sendSubscribeRequest());
+		System.out.println("Block       friend:" + RestClient.sendBlockRequest());
+		System.out.println("Get special friend:" + RestClient.getRecipients());
 	}
 
 	private static String sendHelloRequest() {
@@ -34,6 +39,66 @@ public class RestClient {
 		return null;
 	}
 
+	private static String getFriendsRequest() {
+		String jsonstr = "{email:'andy@example.com'}";
+		JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			return sendPostRequest(obj,"getFriends");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String getCommonFriendsRequest() {
+		String jsonstr = "{friends:['andy@example.com','john@example.com']}";
+		JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			return sendPostRequest(obj,"getCommonFriends");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String sendSubscribeRequest() {
+		String jsonstr = "{'requestor': 'lisa@example.com','target': 'john@example.com'}";
+		JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			return sendPostRequest(obj,"subscribe");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String sendBlockRequest() {
+		String jsonstr = "{'requestor': 'andy@example.com','target': 'john@example.com'}";
+		JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			return sendPostRequest(obj,"block");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static String getRecipients() {
+		String jsonstr = "{sender:'andy@example.com','text': 'Hello World! kate@example.com'}";
+		JSONObject obj;
+		try {
+			obj = new JSONObject(jsonstr);
+			return sendPostRequest(obj,"getRecipients");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private static String sendPostRequest(JSONObject obj, String functionPath) {
 		ClientConfig cc = new DefaultClientConfig();
 		Client client = Client.create(cc);
