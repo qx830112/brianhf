@@ -1,3 +1,5 @@
+package com.qingxin.user.test;
+
 import com.qingxin.service.UserService;
 import com.qingxin.user.bean.User;
 import com.qingxin.user.exception.CreateConflictException;

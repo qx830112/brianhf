@@ -6,7 +6,11 @@ import java.util.Map;
 import com.qingxin.user.bean.User;
 
 public class DummyDB {
-	public static Map<String,User> users = new HashMap<String,User>();
+	
+	private DummyDB(){
+	}
+	
+	public static final Map<String,User> users = new HashMap<>();
 	static{
 		User andy = new User("andy@example.com");
 		User john = new User("john@example.com");

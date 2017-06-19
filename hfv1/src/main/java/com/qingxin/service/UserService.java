@@ -112,19 +112,14 @@ public class UserService {
 		}
 		return true;
 	}
-	/**
-	 * 
-	 * @param user
-	 * @param text
-	 * @return
-	 * @throws UserNotFoundException
-	 */
+
+	
 	public Set<String> getRecipients(User user, String text) throws UserNotFoundException {
 		User u = users.get(user.getMailAddress());
 		if (u == null) {
 			throw new UserNotFoundException();
 		}
-		Set<String> recipients = new TreeSet<String>();
+		Set<String> recipients = new TreeSet<>();
 		
 		List<String> observers = u.getObservers().stream().map(User::getMailAddress).collect(Collectors.toList());
 		List<String> friends = u.getFriends().stream().map(User::getMailAddress).collect(Collectors.toList());
@@ -140,7 +135,7 @@ public class UserService {
 	}
 	
 	private List<String> getMentionedInfo(String text){
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		String reg1 = "[a-zA-Z0-9_]+@[a-zA-Z0-9]+(\\.[a-zA-Z]+){1,3}";
 		Pattern p=Pattern.compile(reg1);
 		Matcher m=p.matcher(text);

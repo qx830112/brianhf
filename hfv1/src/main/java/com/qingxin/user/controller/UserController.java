@@ -23,6 +23,12 @@ import com.qingxin.user.factory.ResponseFactory;
 
 @Path("/api/user/v1")
 public class UserController {
+
+	private static final String SUCCESS ="success";
+	private static final String FRIENDS ="friends";
+	private static final String COUNT ="count";
+	private static final String RECIPIENTS ="recipients";
+	
 	@GET
 	@Path("/sayHello")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -30,7 +36,7 @@ public class UserController {
 
 		JSONObject result = new JSONObject();
 		try {
-			result.put("success", "hello, welcome to happy friend v1");
+			result.put(SUCCESS, "hello, welcome to happy friend v1");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -47,9 +53,9 @@ public class UserController {
 		JSONObject result = new JSONObject();
 
 		try {
-			JSONArray array = (JSONArray) obj.get("friends");
+			JSONArray array = (JSONArray) obj.get(FRIENDS);
 			boolean success = userService.create(new User(array.get(0).toString()), new User(array.get(1).toString()));
-			result.put("success", success);
+			result.put(SUCCESS, success);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -79,9 +85,9 @@ public class UserController {
 			String mailAdress = obj.get("email").toString();
 			List<String> friends = userService.getFriends(new User(mailAdress));
 
-			result.put("success", true);
-			result.put("friends", friends);
-			result.put("count", friends.size());
+			result.put(SUCCESS, true);
+			result.put(FRIENDS, friends);
+			result.put(COUNT, friends.size());
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -105,16 +111,16 @@ public class UserController {
 		JSONObject result = new JSONObject();
 		UserService userService = UserService.getInstance();
 		try {
-			JSONArray array = (JSONArray) obj.get("friends");
+			JSONArray array = (JSONArray) obj.get(FRIENDS);
 
 			List<String> friends1 = userService.getFriends(new User(array.get(0).toString()));
 			List<String> friends2 = userService.getFriends(new User(array.get(1).toString()));
 
 			List<String> commonFriends = userService.getCommonFriends(friends1, friends2);
 
-			result.put("success", true);
-			result.put("friends", commonFriends);
-			result.put("count", commonFriends.size());
+			result.put(SUCCESS, true);
+			result.put(FRIENDS, commonFriends);
+			result.put(COUNT, commonFriends.size());
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -144,7 +150,7 @@ public class UserController {
 
 			boolean success = userService.subscribe(new User(requestor), new User(target));
 
-			result.put("success", success);
+			result.put(SUCCESS, success);
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return ResponseFactory.buildBadRequestResponse(obj);
@@ -171,7 +177,7 @@ public class UserController {
 			String target = obj.get("target").toString();
 
 			boolean success = userService.block(new User(requestor), new User(target));
-			result.put("success", success);
+			result.put(SUCCESS, success);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -198,8 +204,8 @@ public class UserController {
 			String text = obj.get("text").toString();
 			Set<String> recipients = userService.getRecipients(new User(mailAdress),text);
 			
-			result.put("success", true);
-			result.put("recipients", recipients);
+			result.put(SUCCESS, true);
+			result.put(RECIPIENTS, recipients);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

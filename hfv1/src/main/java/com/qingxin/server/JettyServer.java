@@ -22,10 +22,6 @@ public class JettyServer {
 		server.start();
 	}
 
-	public void stop() throws Exception {
-
-	}
-
 	public static void main(String[] args) throws Exception {
 		JettyServer server = new JettyServer();
 		server.start();

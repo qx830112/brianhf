@@ -12,8 +12,10 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class RestClient {
+	private RestClient(){
+	}
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		System.out.println(RestClient.sendHelloRequest());
 		System.out.println("Become      friend:" + RestClient.sendCreateRequest());
 		System.out.println("Get  friend   list:" + RestClient.getFriendsRequest());
@@ -107,8 +109,7 @@ public class RestClient {
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, obj);
 
-		String returnedString = response.getEntity(String.class);
-		return returnedString;
+		return response.getEntity(String.class);
 	}
 
 	private static String sendGetRequest(String functionPath) {
@@ -119,8 +120,7 @@ public class RestClient {
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 				.get(ClientResponse.class);
 
-		String returnedString = response.getEntity(String.class);
-		return returnedString;
+		return response.getEntity(String.class);
 	}
 
 }
