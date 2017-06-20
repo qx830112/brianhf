@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -23,7 +25,8 @@ import com.qingxin.user.factory.ResponseFactory;
 
 @Path("/api/user/v1")
 public class UserController {
-
+	private static final Logger logger = LogManager.getLogger(UserController.class);
+	
 	private static final String SUCCESS ="success";
 	private static final String FRIENDS ="friends";
 	private static final String COUNT ="count";
@@ -38,7 +41,7 @@ public class UserController {
 		try {
 			result.put(SUCCESS, "hello, welcome to happy friend v1");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		return result.toString();
@@ -58,16 +61,16 @@ public class UserController {
 			result.put(SUCCESS, success);
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (CreateConflictException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildConflictExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 
@@ -90,13 +93,13 @@ public class UserController {
 			result.put(COUNT, friends.size());
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 
@@ -123,13 +126,13 @@ public class UserController {
 			result.put(COUNT, commonFriends.size());
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 
@@ -152,13 +155,13 @@ public class UserController {
 
 			result.put(SUCCESS, success);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 		return ResponseFactory.buildSuccessResponse(result);
@@ -180,13 +183,13 @@ public class UserController {
 			result.put(SUCCESS, success);
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 		return ResponseFactory.buildSuccessResponse(result);
@@ -208,13 +211,13 @@ public class UserController {
 			result.put(RECIPIENTS, recipients);
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildBadRequestResponse(obj);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildUserNotFoundExceptionResponse(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return ResponseFactory.buildServerExceptionResponse(obj);
 		}
 		return ResponseFactory.buildSuccessResponse(result);

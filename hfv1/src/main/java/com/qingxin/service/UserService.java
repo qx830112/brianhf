@@ -16,7 +16,7 @@ import com.qingxin.user.exception.UserNotFoundException;
 
 public class UserService {
 	
-	Map<String, User> users = DummyDB.users;
+	Map<String, User> users = DummyDB.getUsers();
 	
 	static UserService userService = new UserService();
 	
@@ -59,8 +59,7 @@ public class UserService {
 		if (u == null) {
 			throw new UserNotFoundException();
 		}
-		List<String> friends = u.getFriends().stream().map(User::getMailAddress).collect(Collectors.toList());
-		return friends;
+		return u.getFriends().stream().map(User::getMailAddress).collect(Collectors.toList());
 	}
 	
 	public List<String> getCommonFriends(List<String> friends1, List<String> friends2) {

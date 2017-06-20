@@ -2,6 +2,8 @@ package com.qingxin.client;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -12,17 +14,18 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class RestClient {
+	private static final Logger logger = LogManager.getLogger(RestClient.class);
 	private RestClient(){
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(RestClient.sendHelloRequest());
-		System.out.println("Become      friend:" + RestClient.sendCreateRequest());
-		System.out.println("Get  friend   list:" + RestClient.getFriendsRequest());
-		System.out.println("Get  common friend:" + RestClient.getCommonFriendsRequest());
-		System.out.println("Subscribe   friend:" + RestClient.sendSubscribeRequest());
-		System.out.println("Block       friend:" + RestClient.sendBlockRequest());
-		System.out.println("Get special friend:" + RestClient.getRecipients());
+		logger.info(RestClient.sendHelloRequest());
+		logger.info("Become      friend:" + RestClient.sendCreateRequest());
+		logger.info("Get  friend   list:" + RestClient.getFriendsRequest());
+		logger.info("Get  common friend:" + RestClient.getCommonFriendsRequest());
+		logger.info("Subscribe   friend:" + RestClient.sendSubscribeRequest());
+		logger.info("Block       friend:" + RestClient.sendBlockRequest());
+		logger.info("Get special friend:" + RestClient.getRecipients());
 	}
 
 	private static String sendHelloRequest() {
@@ -36,7 +39,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"create");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -48,7 +51,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"getFriends");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -60,7 +63,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"getCommonFriends");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -72,7 +75,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"subscribe");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -84,7 +87,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"block");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -96,7 +99,7 @@ public class RestClient {
 			obj = new JSONObject(jsonstr);
 			return sendPostRequest(obj,"getRecipients");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}

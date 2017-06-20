@@ -10,8 +10,9 @@ public class DummyDB {
 	private DummyDB(){
 	}
 	
-	public static final Map<String,User> users = new HashMap<>();
-	static{
+	public static Map<String,User> getUsers(){
+		Map<String,User> users = new HashMap<>();
+		
 		User andy = new User("andy@example.com");
 		User john = new User("john@example.com");
 		User tony = new User("tony@example.com");
@@ -27,5 +28,6 @@ public class DummyDB {
 		andy.getFriends().add(tony);
 		john.getFriends().add(tony);
 		
+		return users;
 	}
 }

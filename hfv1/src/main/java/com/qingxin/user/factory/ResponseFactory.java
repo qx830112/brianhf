@@ -3,10 +3,14 @@ package com.qingxin.user.factory;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 public class ResponseFactory {
+	private static final Logger logger = LogManager.getLogger(ResponseFactory.class);
+	
 	private static final String ERR_MESSAGE ="ErrMessage";
 	private static final String ERR_CODE ="ErrorCode";
 	
@@ -22,7 +26,7 @@ public class ResponseFactory {
 			obj.put(ERR_MESSAGE, "Cannot find the user");
 			obj.put(ERR_CODE,"1001");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return Response.status(Response.Status.NOT_FOUND).entity(new GenericEntity<String>(obj.toString()){}).build();
 	}
@@ -32,7 +36,7 @@ public class ResponseFactory {
 			obj.put(ERR_MESSAGE, "One user is in the block list of the other");
 			obj.put(ERR_CODE,"1002");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return Response.status(Response.Status.CONFLICT).entity(new GenericEntity<String>(obj.toString()){}).build();
 	}
@@ -42,7 +46,7 @@ public class ResponseFactory {
 			obj.put(ERR_MESSAGE, "Bad request");
 			obj.put(ERR_CODE,"5001");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return Response.status(Response.Status.BAD_REQUEST).entity(new GenericEntity<String>(obj.toString()){}).build();
 	}
@@ -52,7 +56,7 @@ public class ResponseFactory {
 			obj.put(ERR_MESSAGE, "There is an error in the server");
 			obj.put(ERR_CODE,"5002");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new GenericEntity<String>(obj.toString()){}).build();
 	}
